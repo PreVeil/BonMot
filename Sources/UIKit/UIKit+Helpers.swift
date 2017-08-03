@@ -43,11 +43,14 @@ extension UITraitCollection {
             if preferredContentSizeCategory != .unspecified {
                 return preferredContentSizeCategory
             }
+        #endif
+        if #available(iOSApplicationExtension 10.0, *) {
+            return UIScreen.main.traitCollection.preferredContentSizeCategory
         }
-        // `UIApplication.shared` is not a valid object in unit tests. Fall back
-        // to a default value if the delegate is nil.
-        if UIApplication.shared.delegate != nil {
-            return UIApplication.shared.preferredContentSizeCategory
+        else if let application = UIApplication.value(forKey: "sharedApplication") as? UIApplication, application.delegate != nil {
+            // `UIApplication.shared` is not a valid object in unit tests. Fall back
+            // to a default value if the delegate is nil.
+            return application.preferredContentSizeCategory
         }
         else {
             return UIContentSizeCategory.large

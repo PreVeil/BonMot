@@ -43,7 +43,7 @@ extension UITraitCollection {
             if preferredContentSizeCategory != .unspecified {
                 return preferredContentSizeCategory
             }
-        #endif
+        }
         if #available(iOSApplicationExtension 10.0, *) {
             return UIScreen.main.traitCollection.preferredContentSizeCategory
         }
